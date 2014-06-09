@@ -46,7 +46,7 @@ function post(url, data) {
     data: JSON.stringify(data),
     dataType: 'json'
   });
-};
+}
 
 function fetch(url, cb) {
   url = url.replace(DATA.host, '');
@@ -60,7 +60,7 @@ function fetch(url, cb) {
   }
   $.ajax(DATA.host+url).then(function(res, statusText, xhr) {
     DATA.cache[url] = res;
-    // this is lame, should make "fechCourses" and "fetchCourse"
+    // this is lame, should make "fetchCourses" and "fetchCourse"
     // methods, then I'd just know™ to do the links and the last url
     extractLinks(url, xhr);
     if (Array.isArray(res)) {

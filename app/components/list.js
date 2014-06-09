@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var PaginationButton = require('./pagination-button');
 var store = require('../store');
 
 module.exports = React.createClass({
@@ -32,18 +31,15 @@ module.exports = React.createClass({
 
   renderCourseListItems: function() {
     return this.state.courses.map(function(course) {
-      var href = "/course/"+course.id;
-      return <li><a href={href}>{course.name}</a></li>;
+      return <li><a href={"/course/"+course.id}>{course.name}</a></li>;
     });
   },
 
-  renderPagination: function() {
-    return this.state.links.map(function(link) {
-      return <PaginationButton
-        onClick={this.handlePaginationButton}
-        url={link.url}>{link.rel}
-      </PaginationButton>;
-    }, this);
+  renderPaginationButton: function(link) {
+    return <button
+      onClick={this.handlePaginationButton.bind(this, link.url)}
+      url={link.url}
+    >{link.rel}</button>;
   },
 
   render: function() {
@@ -55,7 +51,7 @@ module.exports = React.createClass({
         <ul>
           {this.renderCourseListItems()}
         </ul>
-        {this.renderPagination()}
+        {this.state.links.map(this.renderPaginationButton)}
       </div>
     );
   }
